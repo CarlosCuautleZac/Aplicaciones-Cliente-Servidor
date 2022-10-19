@@ -33,6 +33,7 @@ namespace HttpServerEjemplo2
 
                 if(context.Request.Url.LocalPath == "/notificar")
                 {
+                    
                     var mensaje = context.Request.QueryString["mensaje"];
                     var titulo = context.Request.QueryString["titulo"];
                     if(mensaje!=null && titulo != null)
