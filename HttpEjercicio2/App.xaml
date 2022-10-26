@@ -1,0 +1,9 @@
+﻿<Application x:Class="HttpEjercicio2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HttpEjercicio2"
+             StartupUri="Views/CirculoView.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

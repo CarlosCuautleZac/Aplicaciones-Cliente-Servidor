@@ -29,7 +29,7 @@ namespace HttpServerEjemplo2
             {
                 var context = server.GetContext();
                 
-                //http://127.0.0.1:3000/notificar?mensaje=hola&titulo=algo
+                //http://127.0.0.1:3001/notificar?mensaje=hola&titulo=algo
 
                 if(context.Request.Url.LocalPath == "/notificar")
                 {
