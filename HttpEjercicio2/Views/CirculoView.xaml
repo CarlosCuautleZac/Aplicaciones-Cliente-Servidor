@@ -10,7 +10,25 @@
     <Window.DataContext>
         <vm:CirculosViewModel></vm:CirculosViewModel>
     </Window.DataContext>
-    <Grid>
-        <Button Width="100" Height="100" Command="{Binding IniciarServerCommand}">Iniciar</Button>
-    </Grid>
+    <DockPanel>
+        <Button Height="50"
+                DockPanel.Dock="Top"
+                Width="100"
+                Content="Iniciar sesion"
+                Command="{Binding IniciarServidorCommand}"></Button>
+        <ItemsControl ItemsSource="{Binding Circulos}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <!--<ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding Content.Canvas.Left}"></Setter>
+                    <Setter Property="Canvas.Top" Value="{Binding Content.Canvas.Top}"></Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>-->
+        </ItemsControl>
+    </DockPanel>
 </Window>
