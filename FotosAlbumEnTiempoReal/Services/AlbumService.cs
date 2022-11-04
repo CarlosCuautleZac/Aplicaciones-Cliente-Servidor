@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FotosAlbumEnTiempoReal.Services
 {
@@ -45,15 +46,28 @@ namespace FotosAlbumEnTiempoReal.Services
                 byte[] buffer = File.ReadAllBytes("assets/index.html");
                 context.Response.ContentType = "text/html";
                 context.Response.OutputStream.Write(buffer, 0, buffer.Length);
-                
+
                 context.Response.StatusCode = 200;
             }
+            else if (context.Request.Url.LocalPath == "/album/imagen/" && context.Request.HttpMethod == "POST")
+            {
+                var stream = new StreamReader(context.Request.InputStream);
+                var data = HttpUtility.UrlDecode(stream.ReadToEnd());
+
+                //Tomar todo lo que essta despues del MIME type
+                var imageb64 = data.Substring(data.IndexOf(',')+1);
+                var buffer = Convert.FromBase64String(imageb64);
+                File.WriteAllBytes($"Assets/imagen_{DateTime.Now.ToString("ddMMyyyyhhhmmmss")}.png",buffer);
+                context.Response.StatusCode = 200;
+                context.Response.Redirect("/album/");
+            }
+
             else
             {
                 context.Response.StatusCode = 404;
-            }
-            context.Response.Close();
 
+
+            }
         }
     }
 }

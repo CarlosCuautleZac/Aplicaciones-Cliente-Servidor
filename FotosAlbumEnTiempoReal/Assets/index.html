@@ -1,15 +1,38 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <title></title>
 </head>
 <body>
-    <h1>Selecciona el archivo</h1>
-    <input type="file">
-    <br />
-    <input type="submit">
+    <h1>Selecciona la imagen a enviar:</h1>
+
+
+    <img style="max-width:300px; max-height:300px" id="image" />
+
+
+    <form method="post" action="imagen">
+        <input type="hidden" id="foto" name="foto" />
+        <input type="file" />
+        <input type="submit" value="Enviar imagen" />
+    </form>
+
+    <script>
+
+        const img = document.getElementById("image");
+        const foto = document.getElementById("foto");
+
+        document.querySelector("input[type=file]").addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                    foto.value = img.src;
+                }
+                var data = reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+    </script>
 </body>
 </html>
