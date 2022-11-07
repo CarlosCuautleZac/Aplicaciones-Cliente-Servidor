@@ -15,6 +15,7 @@ namespace FotosAlbumEnTiempoReal.Services
     public class AlbumService
     {
         HttpListener server = new();
+        public event Action<string?> ImagenRecibida;
 
         public void Start()
         {
@@ -43,13 +44,14 @@ namespace FotosAlbumEnTiempoReal.Services
             if (context.Request.Url.LocalPath == "/album/")
             {
 
-                byte[] buffer = File.ReadAllBytes("assets/index.html");
+                byte[] buffer = File.ReadAllBytes("Assets/index.html");
                 context.Response.ContentType = "text/html";
                 context.Response.OutputStream.Write(buffer, 0, buffer.Length);
 
                 context.Response.StatusCode = 200;
+                
             }
-            else if (context.Request.Url.LocalPath == "/album/imagen/" && context.Request.HttpMethod == "POST")
+            else if (context.Request.Url.LocalPath == "/album/imagen" && context.Request.HttpMethod == "POST")
             {
                 var stream = new StreamReader(context.Request.InputStream);
                 var data = HttpUtility.UrlDecode(stream.ReadToEnd());
@@ -57,7 +59,11 @@ namespace FotosAlbumEnTiempoReal.Services
                 //Tomar todo lo que essta despues del MIME type
                 var imageb64 = data.Substring(data.IndexOf(',')+1);
                 var buffer = Convert.FromBase64String(imageb64);
-                File.WriteAllBytes($"Assets/imagen_{DateTime.Now.ToString("ddMMyyyyhhhmmmss")}.png",buffer);
+
+                var ruta = $"Assets/imagen_{DateTime.Now.ToString("ddMMyyyyhhhmmmss")}.png";
+                File.WriteAllBytes(ruta,buffer);
+                ImagenRecibida?.Invoke(ruta);
+
                 context.Response.StatusCode = 200;
                 context.Response.Redirect("/album/");
             }
@@ -68,6 +74,8 @@ namespace FotosAlbumEnTiempoReal.Services
 
 
             }
+
+            context.Response.Close();
         }
     }
 }

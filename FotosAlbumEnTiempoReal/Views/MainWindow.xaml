@@ -10,8 +10,9 @@
     <Window.DataContext>
         <vm:AlbumViewModel></vm:AlbumViewModel>
     </Window.DataContext>
-    <Grid>
+    <DockPanel>
 
-        <Button Width="100" Height="50" Command="{Binding IniciarCommand}">Iniciar</Button>
-    </Grid>
+        <Button DockPanel.Dock="Bottom" Width="100" Height="50" Command="{Binding IniciarCommand}">Iniciar</Button>
+        <Image Margin="10" Source="{Binding ImagenSeleccionada}"></Image>
+    </DockPanel>
 </Window>
