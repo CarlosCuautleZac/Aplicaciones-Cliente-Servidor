@@ -67,7 +67,6 @@ namespace FotosAlbumEnTiempoReal.Services
                 context.Response.StatusCode = 200;
                 context.Response.Redirect("/album/");
             }
-
             else
             {
                 context.Response.StatusCode = 404;

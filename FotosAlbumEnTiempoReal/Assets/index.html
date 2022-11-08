@@ -1,38 +1,69 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <style>
+        div {
+            width: 320px;
+            height: 240px;
+            position: relative;
+        }
+
+            div canvas, div video {
+                position: absolute;
+                z-index: -1;
+            }
+    </style>
 </head>
 <body>
-    <h1>Selecciona la imagen a enviar:</h1>
 
-
-    <img style="max-width:300px; max-height:300px" id="image" />
-
+    <div>
+        <canvas id="canvas" width="640" height="480"></canvas>
+        <video id="video" autoplay style="background:red;"></video>
+    </div>
 
     <form method="post" action="imagen">
+        <button id="start-camera" type="button">Camara</button>
+        <button id="click-photo" type="button">Tomar foto</button>
+
         <input type="hidden" id="foto" name="foto" />
-        <input type="file" />
-        <input type="submit" value="Enviar imagen" />
     </form>
 
     <script>
 
-        const img = document.getElementById("image");
+        let camera_button = document.querySelector("#start-camera");
+        let video = document.querySelector("#video");
+        let click_button = document.querySelector("#click-photo");
+        let canvas = document.querySelector("#canvas");
+        let stream;
         const foto = document.getElementById("foto");
 
-        document.querySelector("input[type=file]").addEventListener("change", function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    img.src = e.target.result;
-                    foto.value = img.src;
-                }
-                var data = reader.readAsDataURL(this.files[0]);
-            }
+
+        camera_button.addEventListener('click', async function () {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "environment", width: { ideal: 1920 },
+                    height: { ideal: 1080 }
+                }, audio: false
+            });
+            video.srcObject = stream;
         });
 
+        click_button.addEventListener('click', function () {
+            canvas.width = video.clientWidth;
+            canvas.height = video.clientHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            let image_data_url = canvas.toDataURL('image/jpeg');
+            stream.getTracks().forEach(function (track) {
+                track.stop();
+            });
+            video.srcObject = null;
+            foto.value = image_data_url;
+            foto.form.submit();
+
+        });
     </script>
 </body>
 </html>
