@@ -11,15 +11,25 @@ namespace Votacion.Services
 {
     public class VotacionService
     {
-        HttpListener listener = new();
-        private string pregunta;
+        public event Action<int> VotoRecibido;
 
+        #region Campos    
+        private string pregunta ="";
+        #endregion
+
+        //Objetos
+
+        HttpListener listener = new();
+
+        //Constructor
         public VotacionService()
         {
             listener.Prefixes.Add("https://*:3506/votacion/");
 
         }
 
+
+        #region Metodos
         public void Iniciar()
         {
             if (!listener.IsListening)
@@ -27,8 +37,6 @@ namespace Votacion.Services
                 listener.Start();
                 listener.BeginGetContext(ContextoRecibido, null);
             }
-
-
         }
 
         public void EstablecerPregunta(Pregunta p)
@@ -53,12 +61,33 @@ namespace Votacion.Services
                     context.Response.StatusCode = 200;
                     context.Response.Close();
                 }
-                else if (context.Request.Url.LocalPath == "/votacion/responder")
+                else if (context.Request.Url.LocalPath == "/votacion/responder")//?voto=1
                 {
+                    if (context.Request.QueryString["voto"] != null)
+                    {
 
+                        int voto = int.Parse(context.Request.QueryString["voto"]);
+                        context.Response.StatusCode = 200;
+                        VotoRecibido?.Invoke(voto); 
+                        context.Response.Close();
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 400;
+                        context.Response.Close();
+                    }
                 }
+                else
+                {
+                    context.Response.StatusCode = 404;
+                    context.Response.Close();
+                }
+
+
             }
 
         }
+
+        #endregion
     }
 }
