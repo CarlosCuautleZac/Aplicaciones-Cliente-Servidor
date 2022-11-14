@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Votacion.Models;
 using Votacion.Services;
 
@@ -64,9 +65,16 @@ namespace Votacion.ViewModels
             Lanzar(nameof(Pregunta));
         }
 
+
         private void VotacionService_VotoRecibido(int obj)
         {
-            throw new NotImplementedException();
+            switch (obj)
+            {
+                case 1: Voto1++; break;
+                case 2: Voto2++; break;
+                case 3: Voto3++; break;
+            }
+            Lanzar();
         }
 
         private void Iniciar()
@@ -78,19 +86,20 @@ namespace Votacion.ViewModels
                 //Validar la pregunta
                 if (string.IsNullOrWhiteSpace(Pregunta.Descripcion))
                 {
-                    Error = "Escribe la pregunta"+Environment.NewLine;
+                    Error = "Escribe la pregunta" + Environment.NewLine;
                 }
 
-                if (string.IsNullOrEmpty(Pregunta.Respuesta1)|| string.IsNullOrEmpty(Pregunta.Respuesta2) || string.IsNullOrEmpty(Pregunta.Respuesta3))
+                if (string.IsNullOrEmpty(Pregunta.Respuesta1) || string.IsNullOrEmpty(Pregunta.Respuesta2) || string.IsNullOrEmpty(Pregunta.Respuesta3))
                 {
-                    Error = "Escribe por lo menos 1 respuesta"+Environment.NewLine;
+                    Error = "Escribe por lo menos 1 respuesta" + Environment.NewLine;
                 }
 
-                if (Error == "")
+                if (Error == "")//No hubo errores
                 {
+                    votacionService.EstablecerPregunta(Pregunta);
                     votacionService.Iniciar();
                     var json = JsonConvert.SerializeObject(Pregunta);
-                    File.WriteAllText("pregunta.json",json);
+                    File.WriteAllText("pregunta.json", json);
                     Vista = Vistas.Resultados;
                 }
             }

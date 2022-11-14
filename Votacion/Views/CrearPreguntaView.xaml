@@ -8,17 +8,18 @@
              d:DesignHeight="450" d:DesignWidth="500" Background="White">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom">
-            <Button Content="Lanzar encuesta" Padding="10" Margin="10"></Button>
+            <Button Content="Lanzar encuesta" Padding="10" Margin="10" Command="{Binding IniciarCommand}"></Button>
         </StackPanel>
         <StackPanel Margin="10">
             <TextBlock>Escriba la pregunta:</TextBlock>
-            <TextBox AcceptsReturn="True" Height="40"></TextBox>
+            <TextBox AcceptsReturn="True" Height="40" Text="{Binding Pregunta.Descripcion}"></TextBox>
 
             <TextBlock>Respuestas:</TextBlock>
-            <TextBox></TextBox>
-            <TextBox></TextBox>
-            <TextBox></TextBox>
-            
+            <TextBox Text="{Binding Pregunta.Respuesta1}"></TextBox>
+            <TextBox Text="{Binding Pregunta.Respuesta2}"></TextBox>
+            <TextBox Text="{Binding Pregunta.Respuesta3}"></TextBox>
+
+            <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{Binding Error}"></TextBlock>
         </StackPanel>
     </DockPanel>
 </UserControl>

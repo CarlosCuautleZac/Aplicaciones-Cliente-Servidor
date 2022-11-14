@@ -24,7 +24,7 @@ namespace Votacion.Services
         //Constructor
         public VotacionService()
         {
-            listener.Prefixes.Add("https://*:3506/votacion/");
+            listener.Prefixes.Add("http://*:3506/votacion/");
 
         }
 

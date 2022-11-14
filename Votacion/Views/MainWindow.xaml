@@ -3,10 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Votacion"
+        xmlns:local="clr-namespace:Votacion" xmlns:viewmodels="clr-namespace:Votacion.ViewModels" xmlns:views="clr-namespace:Votacion.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.DataContext>
+        <viewmodels:EncuestaViewModel></viewmodels:EncuestaViewModel>
+    </Window.DataContext>
 
-    </Grid>
+    <Window.Resources>
+        <views:ResultadosView x:Key="resultados"></views:ResultadosView>
+        <views:CrearPreguntaView x:Key="pregunta"></views:CrearPreguntaView>
+    </Window.Resources>
+    
+    <ContentControl>
+        <ContentControl.Style>
+            <Style TargetType="ContentControl">
+                <Style.Triggers>
+                    
+                    
+                    <DataTrigger Binding="{Binding Vista}" Value="{x:Static viewmodels:Vistas.Pregunta}">
+                        <Setter Property="Content" Value="{StaticResource pregunta}"></Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding Vista}" Value="{x:Static viewmodels:Vistas.Resultados}">
+                        <Setter Property="Content" Value="{StaticResource resultados}"></Setter>
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+        
+    </ContentControl>
 </Window>

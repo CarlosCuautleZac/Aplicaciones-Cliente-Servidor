@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
              xmlns:local="clr-namespace:Votacion.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600" Background="White">
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Margin="20" FontSize="40"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Text="¿Esta es la pregunta?"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Pregunta.Descripcion}"
                    ></TextBlock>
 
         <Border Width="300" Height="150" VerticalAlignment="Center" 
@@ -24,13 +25,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <ProgressBar Grid.Row="1" Maximum="100" Value="40"></ProgressBar>
-                <ProgressBar Grid.Row="3" Maximum="100" Value="10"></ProgressBar>
-                <ProgressBar Grid.Row="5" Maximum="100" Value="50"></ProgressBar>
+                <ProgressBar Grid.Row="1" Maximum="{Binding Total}" Value="{Binding Voto1}"></ProgressBar>
+                <ProgressBar Grid.Row="3" Maximum="{Binding Total}" Value="{Binding Voto2}"></ProgressBar>
+                <ProgressBar Grid.Row="5" Maximum="{Binding Total}" Value="{Binding Voto3}"></ProgressBar>
 
-                <TextBlock Grid.Row="0" VerticalAlignment="Center">Respuesta 1(10 respuestas)</TextBlock>
-                <TextBlock Grid.Row="2" VerticalAlignment="Center">Respuesta 2 (15 respuestas)</TextBlock>
-                <TextBlock Grid.Row="4" VerticalAlignment="Center">Respuesta 3 (5 respuestas)</TextBlock>
+                <TextBlock Grid.Row="0" VerticalAlignment="Center"><Run Text="{Binding Pregunta.Respuesta1}"></Run>(<Run Text="{Binding Voto1}"></Run> respuestas)</TextBlock>
+                <TextBlock Grid.Row="2" VerticalAlignment="Center"><Run Text="{Binding Pregunta.Respuesta2}"></Run>(<Run Text="{Binding Voto2}"></Run> respuestas)</TextBlock>
+                <TextBlock Grid.Row="4" VerticalAlignment="Center"><Run Text="{Binding Pregunta.Respuesta3}"></Run>(<Run Text="{Binding Voto3}"></Run> respuestas)</TextBlock>
             </Grid>
         </Border>
     </DockPanel>
