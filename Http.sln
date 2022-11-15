@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpEjercicio2", "HttpEjerc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FotosAlbumEnTiempoReal", "FotosAlbumEnTiempoReal\FotosAlbumEnTiempoReal.csproj", "{1246503A-329A-4AC1-A0B5-47505DD82D6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votacion", "Votacion\Votacion.csproj", "{7B0212FE-8F79-49BA-8EDF-12537B59BCCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Votacion", "Votacion\Votacion.csproj", "{7B0212FE-8F79-49BA-8EDF-12537B59BCCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotacionXamarin.Android", "VotacionXamarin\VotacionXamarin.Android\VotacionXamarin.Android.csproj", "{1564853F-4C49-4E57-A716-A5399CB731BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotacionXamarin", "VotacionXamarin\VotacionXamarin\VotacionXamarin.csproj", "{9F86AA2E-C84E-4E06-BF21-B2AF60B40C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,16 @@ Global
 		{7B0212FE-8F79-49BA-8EDF-12537B59BCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0212FE-8F79-49BA-8EDF-12537B59BCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0212FE-8F79-49BA-8EDF-12537B59BCCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1564853F-4C49-4E57-A716-A5399CB731BA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9F86AA2E-C84E-4E06-BF21-B2AF60B40C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F86AA2E-C84E-4E06-BF21-B2AF60B40C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F86AA2E-C84E-4E06-BF21-B2AF60B40C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F86AA2E-C84E-4E06-BF21-B2AF60B40C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
