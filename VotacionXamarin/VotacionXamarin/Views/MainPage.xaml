@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System.Runtime;assembly=System.Runtime"
+    xmlns:vm="clr-namespace:VotacionXamarin.ViewModels"
+             x:Class="VotacionXamarin.Views.MainPage">
+    
+ 
+    
+    <StackLayout Margin="10">
+        
+        <Label FontSize="20" Text="{Binding Pregunta.Descripcion}" HorizontalTextAlignment="Center"></Label>
+
+        <Button Text="{Binding Pregunta.Respuesta1}" Command="{Binding VotarCommand}" CommandParameter=""></Button>
+
+        <Button Text="{Binding Pregunta.Respuesta2}" Command="{Binding VotarCommand}" CommandParameter=""></Button>
+
+        <Button Text="{Binding Pregunta.Respuesta3}" Command="{Binding VotarCommand}" CommandParameter=""></Button>
+
+        
+
+        <Label Text="{}"></Label>
+
+    </StackLayout>
+</ContentPage>

@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Text;
 using System.Transactions;
 using System.Windows.Input;
+using VotacionXamarin.Models;
 using VotacionXamarin.Services;
+using Xamarin.Forms;
 
 namespace VotacionXamarin.ViewModels
 {
@@ -13,19 +15,44 @@ namespace VotacionXamarin.ViewModels
     {
         VotacionCliente cliente = new VotacionCliente();
 
-        public string Pregunta { get; set; }
+        public Pregunta Pregunta { get; set; }
         public string Error { get; set; }
-        public ICommand VotarCommand { get; set; }
+        public Command VotarCommand { get; set; }
 
+        public bool Votado { get; set; }
 
         public VotacionViewModel()
         {
-            VotarCommand = new RelayCommand(Votar);
+            VotarCommand = new Command<int>(Votar);
+            CargarPregunta();
         }
 
-        private void Votar()
+        private async void CargarPregunta()
         {
-            throw new NotImplementedException();
+            Pregunta = await cliente.GetPregunta();
+
+            if (Pregunta == null)
+                Error = "No se pudo conectar al servidor";
+            Lanzar(nameof());
+        }
+
+        private async void Votar(int opcionvoto)
+        {
+            try
+            {
+                if (Pregunta != null)
+                {
+                    await cliente.Votar(opcionvoto);
+                    Votado = true;
+                    Lanzar(nameof(Votado));
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                Lanzar(nameof(Error));
+            }
+
         }
 
         public void Lanzar(string nombre = "")

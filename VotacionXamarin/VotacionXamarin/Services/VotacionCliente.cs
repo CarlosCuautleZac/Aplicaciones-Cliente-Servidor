@@ -14,12 +14,12 @@ namespace VotacionXamarin.Services
 
         public VotacionCliente()
         {
-            cliente.BaseAddress = new Uri("https://e0ab-187-209-255-62.ngrok.io/votacion/");
+            cliente.BaseAddress = new Uri("https://6141-187-209-255-62.ngrok.io/votacion/");
         }
 
         public async Task<Pregunta> GetPregunta()
         {
-            HttpResponseMessage responseMessage = await cliente.GetAsync("/pregunta");
+            HttpResponseMessage responseMessage = await cliente.GetAsync("pregunta");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var response = await responseMessage.Content.ReadAsStringAsync();
@@ -32,7 +32,7 @@ namespace VotacionXamarin.Services
             }
         }
 
-        public async void Votar(int opcion)
+        public async Task Votar(int opcion)
         {
             var response = await cliente.GetAsync("/responder/?voto=" + opcion);
             response.EnsureSuccessStatusCode();

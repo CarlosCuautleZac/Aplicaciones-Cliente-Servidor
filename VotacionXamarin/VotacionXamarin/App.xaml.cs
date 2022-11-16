@@ -1,6 +1,8 @@
 ﻿using System;
+using VotacionXamarin.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
 
 namespace VotacionXamarin
 {
@@ -10,7 +12,7 @@ namespace VotacionXamarin
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Page1();
         }
 
         protected override void OnStart()
