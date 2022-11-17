@@ -33,8 +33,30 @@ namespace VotacionXamarin.ViewModels
 
             if (Pregunta == null)
                 Error = "No se pudo conectar al servidor";
-            Lanzar(nameof());
+
+            Lanzar();
         }
+
+        //get
+        //private async void Votar(int opcionvoto)
+        //{
+        //    try
+        //    {
+        //        if (Pregunta != null)
+        //        {
+        //            await cliente.Votar(opcionvoto);
+        //            Votado = true;
+        //            Lanzar(nameof(Votado));
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = ex.Message;
+        //        Lanzar(nameof(Error));
+        //    }
+
+        //}
+
 
         private async void Votar(int opcionvoto)
         {
@@ -42,9 +64,11 @@ namespace VotacionXamarin.ViewModels
             {
                 if (Pregunta != null)
                 {
-                    await cliente.Votar(opcionvoto);
-                    Votado = true;
-                    Lanzar(nameof(Votado));
+                    Voto v = new Voto();
+                    v.Opcion = opcionvoto;
+                    await cliente.VotarPost(v);
+                    Votado = false;
+                    Lanzar();
                 }
             }
             catch (Exception ex)
@@ -54,6 +78,23 @@ namespace VotacionXamarin.ViewModels
             }
 
         }
+
+        //private async void VotarPost(Voto voto)
+        //{
+        //    try
+        //    {
+        //        if (voto != null)
+        //        {
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Error = ex.Message;
+        //        Lanzar(nameof(Error));
+        //    }
+
+        //}
 
         public void Lanzar(string nombre = "")
         {

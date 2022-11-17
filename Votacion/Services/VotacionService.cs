@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Votacion.Services
         public event Action<int> VotoRecibido;
 
         #region Campos    
-        private string pregunta ="";
+        private string pregunta = "";
         #endregion
 
         //Objetos
@@ -56,19 +57,33 @@ namespace Votacion.Services
                 if (context.Request.Url.LocalPath == "/votacion/pregunta")
                 {
                     byte[] buffer = Encoding.UTF8.GetBytes(pregunta);
-                    context.Response.ContentType="application/json"; //MIME
+                    context.Response.ContentType = "application/json"; //MIME
                     context.Response.OutputStream.Write(buffer, 0, buffer.Length);
                     context.Response.StatusCode = 200;
                     context.Response.Close();
                 }
+                else if (context.Request.HttpMethod == "POST" && context.Request.Url.LocalPath == "/votacion/responder")
+                {
+                    var stream = new StreamReader(context.Request.InputStream);
+                    var json = stream.ReadToEnd();
+                    Voto? voto = JsonConvert.DeserializeObject<Voto>(json);
+                    context.Response.StatusCode = 200;
+
+                    if (voto != null)
+                        VotoRecibido?.Invoke(voto.Opcion);
+
+                    context.Response.Close();
+                }
+                //Si es por querystring usamos esto(GET)
                 else if (context.Request.Url.LocalPath == "/votacion/responder")//?voto=1
                 {
+
                     if (context.Request.QueryString["voto"] != null)
                     {
 
                         int voto = int.Parse(context.Request.QueryString["voto"]);
                         context.Response.StatusCode = 200;
-                        VotoRecibido?.Invoke(voto); 
+                        VotoRecibido?.Invoke(voto);
                         context.Response.Close();
                     }
                     else

@@ -14,7 +14,7 @@ namespace VotacionXamarin.Services
 
         public VotacionCliente()
         {
-            cliente.BaseAddress = new Uri("https://6141-187-209-255-62.ngrok.io/votacion/");
+            cliente.BaseAddress = new Uri("https://8ed0-187-209-255-62.ngrok.io/votacion/");
         }
 
         public async Task<Pregunta> GetPregunta()
@@ -34,7 +34,15 @@ namespace VotacionXamarin.Services
 
         public async Task Votar(int opcion)
         {
-            var response = await cliente.GetAsync("/responder/?voto=" + opcion);
+            var response = await cliente.GetAsync("responder?voto=" + opcion);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task VotarPost(Voto voto)
+        {
+            var json = JsonConvert.SerializeObject(voto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await cliente.PostAsync("responder", content);
             response.EnsureSuccessStatusCode();
         }
     }
